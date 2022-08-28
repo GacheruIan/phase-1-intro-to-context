@@ -1,17 +1,17 @@
-const createEmployeeRecord = function(row){
+const createEmployeeRecord = function(record){
   return {
-      firstName: row[0],
-      familyName: row[1],
-      title: row[2],
-      payPerHour: row[3],
+      firstName: record[0],
+      familyName: record[1],
+      title: record[2],
+      payPerHour: record[3],
       timeInEvents: [],
       timeOutEvents: []
   }
 }
 
 const createEmployeeRecords = function(employeeDataInRow) {
-  return employeeDataInRow.map(function(row){
-      return createEmployeeRecord(row)
+  return employeeDataInRow.map(function(record){
+      return createEmployeeRecord(record)
   })
 }
 
@@ -65,20 +65,22 @@ function findEmployeeByFirstName (srcArray, firstName) {
     }, 0)
   }
 
-function wagesEarnedOnDate(employee, dateFind){
-  let rawWage = hoursWorkedOnDate(employee, dateFind)
-      * employee.payPerHour
+function wagesEarnedOnDate(employee, dateFind)
+{
+  let rawWage = hoursWorkedOnDate(employee, dateFind) *employee.payPerHour
   return parseFloat(rawWage.toString())
 }
 
-function allWagesFor(employee){
-  let eligibleDates = employee.timeInEvents.map(function(e){
+function allWagesFor(employee)
+{
+ const eligibleDates = employee.timeInEvents.map(function(e){
       return e.date
   })
 
   let payable = eligibleDates.reduce(function(memo, d){
       return memo + wagesEarnedOnDate(employee, d)
-  }, 0)
+  }, 
+  0)
 
   return payable
 }
